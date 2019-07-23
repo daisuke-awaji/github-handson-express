@@ -11,12 +11,31 @@ describe('Test the root path', () => {
     });
 });
 
-describe('Test the users path', () => {
-    test('It should response the GET method', (done) => {
-        request(app).get('/users').then((response) => {
-            expect(response.text).toBe('[{\"name\":\"Bob\",\"email\":\"bob@email.com\"},{\"name\":\"Smith\",\"email\":\"smithemail.com\"}]');
+describe('Test the user path', () => {
+    test('It should responce the GET method', (done) => {
+        request(app).get('/user/1').then((response) => {
+            expect(response.text).toBe('{"id":1,"name":"Bob","email":"hi@azat.co"}')
             expect(response.statusCode).toBe(200);
             done();
         });
     });
 });
+
+describe('Test the user path (not exist)', () => {
+    test('It should responce the GET method', (done) => {
+        request(app).get('/user/4').then((response) => {
+            expect(response.statusCode).toBe(404);
+            done();
+        });
+    });
+});
+
+describe('Test the users path', () => {
+    test('It should response the GET method', (done) => {
+        request(app).get('/users').then((response) => {
+            expect(response.statusCode).toBe(200);
+            done();
+        });
+    });
+});
+
